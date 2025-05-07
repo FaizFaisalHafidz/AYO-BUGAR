@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\OutletRequest;
 use App\Models\Outlet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class OutletController extends Controller
 {
@@ -27,9 +28,19 @@ class OutletController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(OutletRequest $request)
+    public function store(OutletRequest $req)
     {
-        return $request->all();
+        $validated = $req->validated();
+        try {
+            $code = "OTL-" . date('Ymdhi') . rand(100, 200);
+            $validated['code'] = $code;
+            $validated['meta_card_design'] = $code;
+            Outlet::create($validated);
+            return redirect()->route('outlet.index')->with('success', 'Outlet baru berhasil dibuat');
+        } catch (\Throwable $th) {
+            Log::error('Failed store outlet', [$th]);
+            return redirect()->back()->withInput()->with('error', $th->getMessage());
+        }
     }
 
     /**

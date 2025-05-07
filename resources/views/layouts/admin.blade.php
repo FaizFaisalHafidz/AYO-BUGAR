@@ -33,14 +33,16 @@
         <!-- End Navbar -->
 
         {{-- main content --}}
-        <div class="ms-3">
-            <h1 class="mb-0 h2 font-weight-bolder">@yield('page-title')</h1>
-            <p class="mb-4">
-                @yield('page-desc')
-            </p>
-        </div>
-        <div class="ms-3 mt-5">
-            @yield('content')
+        <div class="container">
+            <div class="">
+                <h1 class="mb-0 h2 font-weight-bolder">@yield('page-title')</h1>
+                <p class="mb-4">
+                    @yield('page-desc')
+                </p>
+            </div>
+            <div class="mt-5">
+                @yield('content')
+            </div>
         </div>
         {{-- end main content --}}
     </main>
@@ -49,6 +51,17 @@
     <script src="{{ asset('template/js/plugins/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('template/js/plugins/smooth-scrollbar.min.js') }}"></script>
     <script src="{{ asset('template/js/plugins/chartjs.min.js') }}"></script>
+    @if (session('success'))
+        <script>
+            alert("{{ session('success') }}");
+        </script>
+    @endif
+    @if (session('error'))
+        <script>
+            alert("{{ session('error') }}");
+        </script>
+    @endif
+
 </body>
 
 </html>

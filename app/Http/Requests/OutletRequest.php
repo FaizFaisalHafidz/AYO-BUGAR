@@ -23,10 +23,10 @@ class OutletRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'effective_date' => 'required',
-            'expired_date' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
+            'effective_date' => 'required|date',
+            'expired_date' => 'required|date|after:effective_date',
+            'wa_number' => 'required|numeric|digits_between:10,12',
+            'email' => 'required|email',
         ];
     }
 }
