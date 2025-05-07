@@ -19,6 +19,14 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
   <!-- CSS Files -->
   <link id="pagestyle" href="{{asset('template/css/material-dashboard.css')}}" rel="stylesheet" />
+  <style>
+    *{
+      color: #192126;
+    }
+    .navbar-vertical .navbar-nav>.nav-item .nav-link.active{
+      background-color: #BBF246 !important
+    }
+  </style>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -31,3 +39,4 @@
   <script src="{{asset('template/js/plugins/perfect-scrollbar.min.js')}}"></script>
   <script src="{{asset('template/js/plugins/smooth-scrollbar.min.js')}}"></script>
   <script src="{{asset('template/js/plugins/chartjs.min.js')}}"></script>
+  <script src="{{asset('template/js/material-dashboard.min.js')}}"></script>
