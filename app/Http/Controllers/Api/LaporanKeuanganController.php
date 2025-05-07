@@ -26,9 +26,13 @@ class LaporanKeuanganController extends Controller
             $endDate = $request->input('end_date');
             
             // Query using eager loading and indexing the database effectively
-            $query = OutletTransaction::with(['details' => function($query) {
-                    $query->select('id', 'outlet_transaction_id', 'item', 'total');
-                }])
+            $query = OutletTransaction::with([
+                    'details' => function($query) {
+                        $query->select('id', 'outlet_transaction_id', 'item', 'total');
+                    },
+                    'outlet:id,code,name', // Add outlet relationship
+                    'cardMember:id,card_code,card_member_name,email,wa_number,effective_date,expired_date,outlet_id'
+                ])
                 ->select('id', 'date', 'total', 'outlet_id', 'card_member_id')
                 ->when($outletId, function($query) use ($outletId) {
                     return $query->where('outlet_id', $outletId);
@@ -55,7 +59,8 @@ class LaporanKeuanganController extends Controller
                             'item' => $detail->item,
                             'total' => $detail->total
                         ];
-                    })
+                    }),
+                    'lokasi' => $this->formatLocationData($transaction->outlet),
                 ];
             });
             
@@ -75,5 +80,39 @@ class LaporanKeuanganController extends Controller
                 500
             );
         }
+    }
+
+    /**
+     * Format location data
+     *
+     * @param mixed $outlet
+     * @return array
+     */
+    private function formatLocationData($outlet)
+    {
+        return [
+            'id' => $outlet->id ?? null,
+            'code' => $outlet->code ?? null,
+            'name' => $outlet->name ?? null,
+        ];
+    }
+
+    /**
+     * Format member data
+     *
+     * @param mixed $member
+     * @return array
+     */
+    private function formatMemberData($member)
+    {
+        return [
+            'id' => $member->id ?? null,
+            'code' => $member->card_code ?? null,
+            'name' => $member->card_member_name ?? null,
+            'email' => $member->email ?? null,
+            'wa_number' => $member->wa_number ?? null,
+            'effective_date' => $member->effective_date ?? null,
+            'expired_date' => $member->expired_date ?? null,
+        ];
     }
 }
