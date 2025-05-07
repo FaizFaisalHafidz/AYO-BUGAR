@@ -2,14 +2,31 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CardMember extends Model
 {
-    use SoftDeletes;
-    
-    protected $guarded = ['id'];
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'name',
+        'card_number',
+        'dob',
+        'phone',
+        'email',
+        'membership_type',
+        'effective_date',
+        'expired_date',
+        'created_by'
+    ];
+
+    protected $casts = [
+        'dob' => 'date',
+        'effective_date' => 'date',
+        'expired_date' => 'date',
+    ];
 
     /**
      * Get the outlet that owns the card member
@@ -34,7 +51,9 @@ class CardMember extends Model
     {
         return $this->hasMany(AttendanceMember::class, 'card_member_id');
     }
-    
-    
-   
+
+    public function transactions()
+    {
+        return $this->hasMany(OutletTransaction::class);
+    }
 }
