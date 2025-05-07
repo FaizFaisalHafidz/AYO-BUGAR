@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OutletRequest;
 use App\Models\Outlet;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class OutletController extends Controller
      */
     public function index()
     {
-        //
+        return view('outlet.index');
     }
 
     /**
@@ -20,15 +21,15 @@ class OutletController extends Controller
      */
     public function create()
     {
-        //
+        return view('outlet.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(OutletRequest $request)
     {
-        //
+        return $request->all();
     }
 
     /**
