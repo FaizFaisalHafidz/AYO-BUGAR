@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OutletRequest;
+use App\Models\CardMember;
 use App\Models\Outlet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class OutletController extends Controller
 {
@@ -12,7 +15,8 @@ class OutletController extends Controller
      */
     public function index()
     {
-        //
+        $outlets = Outlet::get();
+        return view('outlet.index', compact('outlets'));
     }
 
     /**
@@ -20,15 +24,25 @@ class OutletController extends Controller
      */
     public function create()
     {
-        //
+        return view('outlet.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(OutletRequest $req)
     {
-        //
+        $validated = $req->validated();
+        try {
+            $code = "OTL-" . date('Ymdhi') . rand(100, 200);
+            $validated['code'] = $code;
+            $validated['meta_card_design'] = $code;
+            Outlet::create($validated);
+            return redirect()->route('outlet.index')->with('success', 'Outlet baru berhasil dibuat');
+        } catch (\Throwable $th) {
+            Log::error('Failed store outlet', [$th]);
+            return redirect()->back()->withInput()->with('error', $th->getMessage());
+        }
     }
 
     /**
@@ -61,5 +75,34 @@ class OutletController extends Controller
     public function destroy(Outlet $outlet)
     {
         //
+    }
+    public function generate($outlet_id)
+    {
+        return view('outlet.generate.index', compact('outlet_id'));
+    }
+    public function generateStore(Request $req)
+    {
+        $cards = [];
+        for ($i = 1; $i <= $req->count ?? 5; $i++) {
+            array_push($cards, [
+                'outlet_id' => $req->outlet_id,
+                'user_id' => 0,
+                'card_code' => str_pad($i, 3, '0', STR_PAD_LEFT),
+                'created_by' => 1,
+            ]);
+        }
+        try {
+            CardMember::upsert($cards, [
+                'outlet_id',
+                'card_code'
+            ], [
+                'outlet_id',
+                'card_code'
+            ]);
+            return redirect()->back()->withInput()->with('success', 'Outlet baru berhasil dibuat')->with('isGenerated', true);
+        } catch (\Throwable $th) {
+            Log::error('Failed store outlet', [$th]);
+            return redirect()->back()->withInput()->with('error', $th->getMessage());
+        }
     }
 }
