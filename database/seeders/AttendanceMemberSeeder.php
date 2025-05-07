@@ -23,7 +23,7 @@ class AttendanceMemberSeeder extends Seeder
     public function run()
     {
         // First ensure we have outlets, users, and cards
-        $this->createOutletsIfNeeded();
+        // $this->createOutletsIfNeeded();
         $this->createUsersIfNeeded();
         $this->createCardMembersIfNeeded();
 
