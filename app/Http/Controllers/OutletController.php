@@ -58,15 +58,22 @@ class OutletController extends Controller
      */
     public function edit(Outlet $outlet)
     {
-        //
+        return view('outlet.edit', compact('outlet'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Outlet $outlet)
+    public function update(OutletRequest $req, Outlet $outlet)
     {
-        //
+        $validated = $req->validated();
+        try {
+            $outlet->update($validated);
+            return redirect()->route('outlet.index')->with('success', 'Outlet baru berhasil diubah');
+        } catch (\Throwable $th) {
+            Log::error('Failed update outlet', [$th]);
+            return redirect()->back()->withInput()->with('error', $th->getMessage());
+        }
     }
 
     /**
@@ -74,7 +81,13 @@ class OutletController extends Controller
      */
     public function destroy(Outlet $outlet)
     {
-        //
+        try {
+            $outlet->delete();
+            return redirect()->route('outlet.index')->with('success', 'Data outlet telah terhapus');
+        } catch (\Throwable $th) {
+            Log::error('Failed delete outlet', [$th]);
+            return redirect()->back()->withInput()->with('error', $th->getMessage());
+        }
     }
     public function generate($outlet_id)
     {
@@ -100,7 +113,7 @@ class OutletController extends Controller
             ]);
             return redirect()->back()->withInput()->with('success', 'Data kartu berhasil dibuat')->with('isGenerated', true);
         } catch (\Throwable $th) {
-            Log::error('Failed store outlet', [$th]);
+            Log::error('Failed generate sotre card', [$th]);
             return redirect()->back()->withInput()->with('error', $th->getMessage());
         }
     }

@@ -55,9 +55,15 @@
                                         <td>
                                             <p class="text-secondary m-0">{{ $outlet->wa_number }}</p>
                                         </td>
-                                        <td>
-                                            <button class="btn btn-sm btn-info m-0">Ubah</button>
-                                            <button class="btn btn-sm btn-danger m-0">Hapus</button>
+                                        <td class="d-flex gap-2">
+                                            <a href="{{ route('outlet.edit', ['outlet' => $outlet->id]) }}"
+                                                class="btn btn-sm btn-info m-0">Ubah</a>
+                                            <form action="{{ route('outlet.destroy', ['outlet' => $outlet->id]) }}"
+                                                method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-sm btn-danger m-0">Hapus</button>
+                                            </form>
                                             <a href="{{ route('outlet.generate', ['outlet_id' => $outlet->id]) }}"
                                                 class="btn btn-sm btn-secondary m-0">Generate</a>
                                         </td>
