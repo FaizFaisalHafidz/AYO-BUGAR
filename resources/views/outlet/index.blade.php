@@ -37,27 +37,32 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <h6 class="mb-0 text-sm">OTL-0092891238</h6>
-                                    </td>
-                                    <td>
-                                        <p class="text-secondary m-0">Organization</p>
-                                    </td>
-                                    <td class="align-middle text-center text-sm">
-                                        <p class="text-secondary m-0">someemail@domain.xxx</p>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <p class="text-secondary m-0">23/04/18</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-secondary m-0">+6387645378923</p>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-sm btn-info m-0">Ubah</button>
-                                        <button class="btn btn-sm btn-danger m-0">Hapus</button>
-                                    </td>
-                                </tr>
+                                @foreach ($outlets as $outlet)
+                                    <tr>
+                                        <td>
+                                            <h6 class="mb-0 text-sm">{{ $outlet->code }}</h6>
+                                        </td>
+                                        <td>
+                                            <p class="text-secondary m-0">{{ $outlet->name }}</p>
+                                        </td>
+                                        <td class="align-middle text-center text-sm">
+                                            <p class="text-secondary m-0">{{ $outlet->email }}</p>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <p class="text-secondary m-0">
+                                                {{ $outlet->effective_date . '-' . $outlet->expired_date }}</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-secondary m-0">{{ $outlet->wa_number }}</p>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info m-0">Ubah</button>
+                                            <button class="btn btn-sm btn-danger m-0">Hapus</button>
+                                            <a href="{{ route('outlet.generate', ['outlet_id' => $outlet->id]) }}"
+                                                class="btn btn-sm btn-secondary m-0">Generate</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
