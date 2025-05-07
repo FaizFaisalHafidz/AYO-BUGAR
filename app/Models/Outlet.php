@@ -9,4 +9,9 @@ class Outlet extends Model
 {
     use SoftDeletes;
     protected $guarded = ['id'];
+
+    public function cardMembers()
+    {
+        return $this->hasMany(CardMember::class, 'outlet_id');
+    }
 }
