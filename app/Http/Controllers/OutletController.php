@@ -86,7 +86,6 @@ class OutletController extends Controller
         for ($i = 1; $i <= $req->count ?? 5; $i++) {
             array_push($cards, [
                 'outlet_id' => $req->outlet_id,
-                'user_id' => 0,
                 'card_code' => str_pad($i, 3, '0', STR_PAD_LEFT),
                 'created_by' => 1,
             ]);
@@ -99,7 +98,7 @@ class OutletController extends Controller
                 'outlet_id',
                 'card_code'
             ]);
-            return redirect()->back()->withInput()->with('success', 'Outlet baru berhasil dibuat')->with('isGenerated', true);
+            return redirect()->back()->withInput()->with('success', 'Data kartu berhasil dibuat')->with('isGenerated', true);
         } catch (\Throwable $th) {
             Log::error('Failed store outlet', [$th]);
             return redirect()->back()->withInput()->with('error', $th->getMessage());

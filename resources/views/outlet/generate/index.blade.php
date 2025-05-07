@@ -15,7 +15,7 @@
                         </div>
                     @endif
 
-                    <form action="#" method="post" id="my-form">
+                    <form action="{{ route('outlet.generate.store') }}" method="post" id="my-form">
                         @csrf
                         <input type="hidden" name="outlet_id" value="{{ old('outlet_id', $outlet_id) }}">
                         <div class="row align-items-center mb-md-3 m-0">
@@ -30,7 +30,8 @@
                                 <img src="https://neoflash.sgp1.digitaloceanspaces.com/ayo-bugar/card/002.jpeg"
                                     alt="example-card" class="img img-fluid rounded-3 mb-3" style="max-width: 400px"><br>
                                 @if (session('isGenerated'))
-                                    <a href="#" class="btn btn-sm btn-secondary m-0">Unduh PDF</a>
+                                    <a href="https://neoflash.sgp1.digitaloceanspaces.com/ayo-bugar/card/ALL_CARD.pdf"
+                                        class="btn btn-sm btn-secondary m-0" target="_blank">Unduh PDF</a>
                                 @endif
                             </div>
                         </div>
