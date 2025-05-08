@@ -12,3 +12,15 @@ Route::prefix('/transaction')->group( function(){
     Route::get('/kartu', [TransactionController::class, 'kartu'])->name('transaction.kartu');
     Route::post('/kartu-store', [TransactionController::class, 'kartuStore'])->name('transaction.kartuStore');
 });
+
+
+Route::prefix('/outlet')->group(function () {
+    Route::get('/', [OutletController::class, 'index'])->name('outlet.index');
+    Route::get('/add-new', [OutletController::class, 'create'])->name('outlet.craete');
+    Route::post('/store', [OutletController::class, 'store'])->name('outlet.store');
+    Route::get('/edit/{outlet}', [OutletController::class, 'edit'])->name('outlet.edit');
+    Route::put('/edit/{outlet}/update', [OutletController::class, 'update'])->name('outlet.update');
+    Route::delete('/delete/{outlet}', [OutletController::class, 'destroy'])->name('outlet.destroy');
+    Route::get('/generate-card/{outlet_id}/', [OutletController::class, 'generate'])->name('outlet.generate');
+    Route::post('/generate/store', [OutletController::class, 'generateStore'])->name('outlet.generate.store');
+});
