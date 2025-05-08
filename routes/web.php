@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClockinController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\OutletController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
@@ -37,3 +38,6 @@ Route::prefix('/outlet')->group(function () {
 
 Route::get('clock-in', [ClockinController::class, 'index'])->name('clockin');
 Route::get('clock-in/store', [ClockinController::class, 'store'])->name('checkin.store');
+Route::prefix('laporan')->group(function(){
+    Route::get('kehadiran', [LaporanController::class, 'kehadiranIndex'])->name('laporan.kehadiran');
+});
