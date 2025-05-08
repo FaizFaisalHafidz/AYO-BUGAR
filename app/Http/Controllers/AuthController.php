@@ -25,7 +25,11 @@ class AuthController extends Controller
             if ($user->email == 'rin@gmail.com') {
                 $req->session()->regenerate();
                 return redirect()->intended('/');
-            } else {
+            } else if($user->email == 'erp@gmail.com'){
+                $req->session()->regenerate();
+                return redirect()->intended('/'); 
+            } 
+            else {
                 $req->session()->invalidate();
                 $req->session()->regenerateToken();
                 return redirect()->back()->with('error', 'Anda bukan ADMIN RIN')->onlyInput('email');
