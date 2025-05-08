@@ -24,6 +24,11 @@
             <span class="nav-link-text ms-1">Checkin GYM</span>
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark {{ request()->routeIs('laporan.kehadiran') ? ' active' : '' }}" href="{{ route('laporan.kehadiran')}}">
+            <span class="nav-link-text ms-1">Laporan Kehadiran</span>
+          </a>
+        </li>
       </ul>
     </div>
     </div>
