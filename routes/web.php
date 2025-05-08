@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClockinController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OutletController;
 use Illuminate\Support\Facades\Route;
@@ -15,3 +16,6 @@ Route::prefix('/outlet')->group(function () {
     Route::get('/generate-card/{outlet_id}/', [OutletController::class, 'generate'])->name('outlet.generate');
     Route::post('/generate/store', [OutletController::class, 'generateStore'])->name('outlet.generate.store');
 });
+
+
+Route::prefix('clock-in', [ClockinController::class, 'index'])->name('clockin');
