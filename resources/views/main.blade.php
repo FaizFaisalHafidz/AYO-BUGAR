@@ -32,6 +32,13 @@
 <body class="g-sidenav-show  bg-gray-100">
   @include('sidebar')
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    @include('layouts.admin.navbar')
+    <div class="">
+      <h1 class="mb-0 h2 font-weight-bolder">@yield('page-title')</h1>
+      <p class="mb-4">
+          @yield('page-desc')
+      </p>
+  </div>
     @yield('content')
   </main>
   <script src="{{asset('template/js/core/popper.min.js')}}"></script>
