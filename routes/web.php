@@ -35,4 +35,5 @@ Route::prefix('/outlet')->group(function () {
 });
 
 
-Route::prefix('clock-in', [ClockinController::class, 'index'])->name('clockin');
+Route::get('clock-in', [ClockinController::class, 'index'])->name('clockin');
+Route::get('clock-in/store', [ClockinController::class, 'store'])->name('checkin.store');

@@ -9,4 +9,8 @@ class ClockinController extends Controller
     public function index(){
         return view('clockin.index');
     }
+
+    public function store(){
+        return redirect()->route('clockin')->with('success', 'Checkin user berhasil');
+    }
 }

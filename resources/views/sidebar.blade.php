@@ -19,6 +19,11 @@
             <span class="nav-link-text ms-1">Transaksi</span>
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark {{ request()->routeIs('clockin') ? ' active' : '' }}" href="{{ route('clockin')}}">
+            <span class="nav-link-text ms-1">Checkin GYM</span>
+          </a>
+        </li>
       </ul>
     </div>
     </div>
