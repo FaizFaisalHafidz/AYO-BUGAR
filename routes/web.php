@@ -1,10 +1,16 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login/authentification', [AuthController::class, 'authentification'])->name('authentification');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
 
 Route::prefix('/transaction')->group( function(){
     Route::get('/', [TransactionController::class, 'index'])->name('transaction.index');
@@ -12,6 +18,7 @@ Route::prefix('/transaction')->group( function(){
     Route::get('/kartu', [TransactionController::class, 'kartu'])->name('transaction.kartu');
     Route::post('/kartu-store', [TransactionController::class, 'kartuStore'])->name('transaction.kartuStore');
 });
+
 
 
 Route::prefix('/outlet')->group(function () {
